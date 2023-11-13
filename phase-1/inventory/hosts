@@ -1,9 +1,12 @@
 [all:vars]
-ansible_user=admin
-ansible_password=admin
+device_working_dir=/var/tmp
+mount_dir=/opt/ansible
+report_dir=/opt/ansible/reports
+backup_dir=/opt/ansible/backups
+
 
 [lb]
-f5 ansible_host=10.1.1.151 private_ip=10.1.1.151 ansible_user=admin ansible_password=admin
+elb01-prod-DAL ansible_host=10.1.1.151 private_ip=10.1.1.151 ansible_user=admin ansible_password=admin
 
 [ssh]
-10.1.1.151 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=default 
+elb01-prod-DAL ansible_host=10.1.1.151 ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=default 
