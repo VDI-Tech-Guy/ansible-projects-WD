@@ -33,7 +33,6 @@
 # that this will be saved outside the container on the node and accessible after the playbook, and EE, have been
 # cleaned up.
 - name: "Collect Data"
-  fetch:
-    flat: true
+  copy:
     dest: '{{report_dir}}/{{filename}}'
     src: '{{data_file}}'
