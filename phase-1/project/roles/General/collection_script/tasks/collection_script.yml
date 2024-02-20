@@ -33,7 +33,7 @@
 - copy:
     content: "{{ temp }}"
     dest: "{{report_dir}}/{{filename}}"
-  delegate_to: localhost/opt/ansible/reports
+  delegate_to: localhost
 
 - debug:
     var: temp
