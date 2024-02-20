@@ -41,5 +41,5 @@
 - name: "Collect Data"
   fetch:
     flat: true
-    dest: "/tmp/{{filename}}"
+    dest: "/opt/ansible/{{filename}}"
     src: "/tmp/{{filename}}"
