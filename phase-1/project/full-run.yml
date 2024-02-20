@@ -12,7 +12,7 @@
     script_file: "{{device_working_dir}}/data_collection_script.sh"
     data_file: "{{device_working_dir}}/{{filename}}"
   roles:
-    - roles/General/collection_scripts
+    - roles/General/collection_script
 
 # - name: BIG-IP create UCS and save locally off-box
 #   hosts: lb
