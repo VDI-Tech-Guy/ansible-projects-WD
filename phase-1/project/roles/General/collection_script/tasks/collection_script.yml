@@ -30,6 +30,10 @@
   shell: 'bash {{script_file}}' # > {{report_dir}}/{{filename}}''
   register: temp
 
+- copy:
+    content: "{{ temp }}"
+    dest: "{{report_dir}}/{{filename}}"
+
 - debug:
     var: temp
 
