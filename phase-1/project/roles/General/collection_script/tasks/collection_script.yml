@@ -30,13 +30,13 @@
   shell: 'bash {{script_file}}' # > {{report_dir}}/{{filename}}''
   register: temp
 
-- copy:
-    content: "{{ temp }}"
-    dest: "{{report_dir}}/{{filename}}"
-  delegate_to: localhost
+# - copy:
+#     content: "{{ temp }}"
+#     dest: "{{report_dir}}/{{filename}}"
+#   delegate_to: localhost
 
 - debug:
-    var: temp
+    var: temp.stdout
 
 # With the data collected, it needs to be copied to the Execution Environment which is a mounted directory.  Meaning
 # that this will be saved outside the container on the node and accessible after the playbook, and EE, have been
