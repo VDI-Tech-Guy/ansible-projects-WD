@@ -42,4 +42,4 @@
   fetch:
     flat: true
     dest: "{{report_dir}}/{{filename}}"
-    src: /tmp/{{filename}}
+    src: "/tmp/{{filename}}"
