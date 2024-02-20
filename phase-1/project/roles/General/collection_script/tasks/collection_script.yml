@@ -27,7 +27,7 @@
 # Self explanatory, runs the script and collects the output.  It may be advisable to put some crumple zones
 # around this as weird issues and errors are not going to be gracefully handled or discovered.
 - name: "Run Script"
-  shell: 'bash {{script_file}}' # > {{report_dir}}/{{filename}}''
+  shell: 'bash {{script_file}} > {{report_dir}}/{{filename}}'
   register: temp
 
 # - copy:
