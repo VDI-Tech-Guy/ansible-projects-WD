@@ -9,8 +9,8 @@
     # data_file is the out of the script file or the report.  Note this goes to a mounted directory in the EE!  Important.
     # device_working_dir, and report_dir are defined in the hosts/inventory
     filename: "{{inventory_hostname}}-{{ lookup('pipe', 'date +%FT%H%MZ') }}-BEFORE.log"
-    script_file: "{{device_working_dir}}/data_collection_script.sh"
-    data_file: "{{device_working_dir}}/{{filename}}"
+    script_file: "{{playbook_dir}}/data_collection_script.sh"
+    data_file: "{{playbook_dir}}/{{filename}}"
   roles:
     - roles/General/collection_script
 
