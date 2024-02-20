@@ -33,6 +33,7 @@
 - copy:
     content: "{{ temp }}"
     dest: "{{report_dir}}/{{filename}}"
+  delegate_to: localhost
 
 - debug:
     var: temp
