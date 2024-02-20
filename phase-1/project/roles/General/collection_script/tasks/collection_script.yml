@@ -35,11 +35,17 @@
 #     dest: "{{report_dir}}/{{filename}}"
 #   delegate_to: localhost
 
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: "{{report_dir}}"
+  delegate_to: localhost
+
 # With the data collected, it needs to be copied to the Execution Environment which is a mounted directory.  Meaning
 # that this will be saved outside the container on the node and accessible after the playbook, and EE, have been
 # cleaned up.
 - name: "Collect Data"
   fetch:
     flat: true
-    dest: "/opt/ansible/reports/{{filename}}"
+    dest: "{{report_dir}}{{filename}}"
     src: "/tmp/{{filename}}"
