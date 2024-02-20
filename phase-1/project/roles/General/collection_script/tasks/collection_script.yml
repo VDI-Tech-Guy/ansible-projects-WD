@@ -31,9 +31,9 @@
   register: temp
 
 - copy:
-    content: "{{ temp.stdout }}"
+    content: "{{ temp }}"
     dest: "{{report_dir}}/{{filename}}"
-  delegate_to: localhost
+  delegate_to: localhost/opt/ansible/reports
 
 - debug:
     var: temp
