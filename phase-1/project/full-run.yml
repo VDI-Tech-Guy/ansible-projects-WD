@@ -13,7 +13,7 @@
     data_file: "{{playbook_dir}}/{{filename}}"
     device_working_dir: "/var/tmp"
     mount_dir: "/opt/ansible"
-    report_dir: "/opt/ansible/reports"
+    report_dir: "/f5data/reports" #"/opt/ansible/reports"
     backup_dir: "/opt/ansible/backups"
   roles:
     - roles/General/collection_script
