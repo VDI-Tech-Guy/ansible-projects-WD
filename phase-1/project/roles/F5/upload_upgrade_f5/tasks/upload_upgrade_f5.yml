@@ -1,11 +1,11 @@
 ---
 
-- name: Upload image to device
-  f5networks.f5_modules.bigip_software_image:
-    image: '{{ repo_path }}/{{ upgrade_image }}'
-    provider: "{{ provider }}"
-  delegate_to: localhost
-  
+# - name: Upload image to device
+#   f5networks.f5_modules.bigip_software_image:
+#     image: '{{ repo_path }}/{{ upgrade_image }}'
+#     provider: "{{ provider }}"
+#   delegate_to: localhost
+
 - name: Get checksum
   f5networks.f5_modules.bigip_command:
     provider: "{{ provider }}"

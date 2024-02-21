@@ -5,10 +5,11 @@
   gather_facts: false
   vars:
     # filename: "{{inventory_hostname}}-{{ lookup('pipe', 'date +%FT%H%MZ') }}-backup.ucs"
-    # trusted_checksum: "{{lookup('file', '{{repo_path}}/{{f5_image}}.md5').split(' ').0}}"
     # backup_dir: "/f5data/backups"
     upgrade_image: "BIGIP-17.1.1.1-0.0.2.iso"
     repo_path: "/mnt/apps/isos/VMware/Appliances/F5/17.x/"
+    trusted_checksum: "{{lookup('file', '{{repo_path}}/{{f5_image}}.md5').split(' ').0}}"
+
   roles:
     # - roles/F5/create_ucs
     # - roles/F5/refresh_license
