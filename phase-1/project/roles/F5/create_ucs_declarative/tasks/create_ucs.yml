@@ -1,0 +1,16 @@
+---
+# Provider and Filename are setup in the defaults main.yml
+# Create Directory for Reports if it doesnt exist
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: "{{ backup_dir }}"
+    state: directory
+    mode: '0775'
+  delegate_to: localhost
+
+#Create UCS File and store it on the Local Ansible Node that executed.
+- name: CREATE UCS
+  f5networks.f5_bigip.bigip_ucs_fetch:
+    dest: "{{ backup_dir }}/{{ filename }}"
+    backup: true
+  delegate_to: localhost
