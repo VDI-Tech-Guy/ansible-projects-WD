@@ -49,5 +49,5 @@
 - name: "Collect Data"
   fetch:
     flat: true
-    dest: "{{report_dir}}{{filename}}"
+    dest: "{{report_dir}}/{{filename}}"
     src: "/tmp/{{filename}}"
