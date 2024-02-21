@@ -20,3 +20,4 @@
     #license_server: "activate.f5.com"
     license_server: "192.168.192.195"
     state: latest
+  delegate_to: localhost
