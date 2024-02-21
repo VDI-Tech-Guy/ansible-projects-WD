@@ -17,7 +17,7 @@
       show bgp ipv4 neighbors
       EOF
 
-# Easier to add a shell tag after the fact.  Simple hack to accomplish this.
+# Easier to add a shell tag after the fact.  S imple hack to accomplish this.
 - name: "Add shell tag"
   lineinfile:
     path: '{{script_file}}'
@@ -30,12 +30,8 @@
   shell: 'bash {{script_file}} > /tmp/{{filename}}'
   register: temp
 
-# - copy:
-#     content: "{{ temp }}"
-#     dest: "{{report_dir}}/{{filename}}"
-#   delegate_to: localhost
 
-
+# Create Directory for Reports if it doesnt exist
 - name: Create a directory if it does not exist
   ansible.builtin.file:
     path: "{{report_dir}}"

@@ -1,6 +1,3 @@
 ---
  - name: Collection Script Array Run
    include_tasks: collection_script.yml
-  #  with_items: "{{ tenant_info }}"
-  #  loop_control:
-  #    loop_var: tenant_info_var

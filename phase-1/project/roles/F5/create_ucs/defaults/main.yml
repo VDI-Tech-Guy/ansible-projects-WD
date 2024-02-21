@@ -1,9 +1,9 @@
 ---
-
+#Provider to connect to BIG-IP
 provider:
   server: "{{ ansible_host }}"
-  user: "{{ ansible_user }}"
-  password: "{{ ansible_password }}"
-  server_port: "{{f5_admin_port}}"
   no_f5_teem: false
   validate_certs: false
+
+#Creates Filename and backup time for UCS File
+filename: "{{ lookup('pipe', 'date +%FT%H%MZ') }}-backup.ucs"
