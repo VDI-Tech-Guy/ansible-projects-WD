@@ -9,10 +9,12 @@
     upgrade_image: "BIGIP-17.1.1.1-0.0.2.iso"
     repo_path: "/mnt/apps/isos/VMware/Appliances/F5/17.x/"
     trusted_checksum: "{{lookup('file', '{{ repo_path }}{{ upgrade_image }}.md5').split(' ').0}}"
+    script_file: "{{playbook_dir}}/collect_f5_volume.sh"
 
   roles:
     # - roles/F5/create_ucs
     # - roles/F5/refresh_license
+    - roles/F5/collection_f5_volume
     - roles/F5/upload_upgrade_f5
     # - roles/F5/upgrade_reboot
 
