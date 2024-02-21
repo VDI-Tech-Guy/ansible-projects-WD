@@ -2,9 +2,11 @@
 
 - name: Collect all BIG-IP information
   f5networks.f5_modules.bigip_device_info:
+    provider: "{{ provider }}"
     gather_subset:
       - license
   register: license_info
+  delegate_to: localhost
 
 - debug:
     var: license_info
