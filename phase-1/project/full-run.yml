@@ -19,7 +19,7 @@
     - roles/General/collection_script
 
 - name: BIG-IP create UCS and save locally off-box
-  hosts: lb
+  hosts: LB
   connection: local
   gather_facts: false
   vars:
