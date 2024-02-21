@@ -20,10 +20,13 @@
       - "calulated md5sum is {{ calc_checksum.stdout.0.split(' ').0 }}"
       -  "trusted md5sum is {{ trusted_checksum }}"
 
+
+# need to add code for finding standby node upgrade, then upgrade standby then reboot, then do active. 
+
 - name: Ensure an existing image is installed in specified volume
   f5networks.f5_modules.bigip_software_install:
     image: '{{ upgrade_image }}'
-    volume: "{{ new_volume }}"
+    volume: "{{ volume_info.stdout }}"
     state: installed
     provider: "{{ provider }}"
   delegate_to: localhost
@@ -33,7 +36,7 @@
 # Response on #2374 is they are not going to fix it and NEXT will be great.
   f5networks.f5_modules.bigip_software_install:
     image: '{{ upgrade_image }}'
-    volume: '{{ new_volume }}'
+    volume: '{{ volume_info.stdout }}'
     state: activated
     provider: "{{ provider }}"
   delegate_to: localhost

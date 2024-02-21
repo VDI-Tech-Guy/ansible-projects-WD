@@ -38,7 +38,7 @@
 # around this as weird issues and errors are not going to be gracefully handled or discovered.
 - name: "Run Script"
   shell: 'bash {{script_file}}'
-  register: temp
+  register: volume_info
 
 - debug:
-    var: temp
+    var: volume_info
