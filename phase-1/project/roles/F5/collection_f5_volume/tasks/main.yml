@@ -1,0 +1,3 @@
+---
+ - name: Collection Script Array Run
+   include_tasks: collection_script.yml
