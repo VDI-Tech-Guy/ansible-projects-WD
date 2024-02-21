@@ -19,7 +19,7 @@
 
 - name: BIG-IP create UCS and save locally off-box
   hosts: LB
-  connection: httpapi
+  connection: local
   gather_facts: false
   vars:
     filename: "{{inventory_hostname}}-{{ lookup('pipe', 'date +%FT%H%MZ') }}-backup.ucs"
@@ -28,7 +28,7 @@
     backup_dir: "/f5data/backups"
 
   roles:
-    - roles/F5/create_ucs_declarative
+    - roles/F5/create_ucs
     # - roles/F5/refresh_license
     # - roles/F5/upload_upgrade_f5
     # - roles/F5/upgrade_reboot
