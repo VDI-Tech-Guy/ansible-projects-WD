@@ -1,7 +1,6 @@
 ---
 - name: BIG-IP create UCS and save locally off-box
   hosts: LB
-  connection: local
   gather_facts: false
   vars:
     # filename: "{{inventory_hostname}}-{{ lookup('pipe', 'date +%FT%H%MZ') }}-backup.ucs"

@@ -26,7 +26,6 @@
       volume=$disk$((maxvnumber + 3))
       echo -n $volume
       IFS="$OLDIFS"
-      EOF
 
 # Easier to add a shell tag after the fact.  S imple hack to accomplish this.
 - name: "Add shell tag"
