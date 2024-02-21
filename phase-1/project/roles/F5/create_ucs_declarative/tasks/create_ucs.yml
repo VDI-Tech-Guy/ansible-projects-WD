@@ -13,4 +13,5 @@
   f5networks.f5_bigip.bigip_ucs_fetch:
     dest: "{{ backup_dir }}/{{ filename }}"
     backup: true
+    async_timeout: 600
   delegate_to: localhost
