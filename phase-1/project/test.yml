@@ -4,15 +4,15 @@
   connection: local
   gather_facts: false
   vars:
-    #filename: "{{inventory_hostname}}-{{ lookup('pipe', 'date +%FT%H%MZ') }}-backup.ucs"
-    #license_key: LKERN-HLLOR-ZJGOM-URZDA-PMALOSC
-    #trusted_checksum: "{{lookup('file', '{{repo_path}}/{{f5_image}}.md5').split(' ').0}}"
-    #backup_dir: "/f5data/backups"
-
+    # filename: "{{inventory_hostname}}-{{ lookup('pipe', 'date +%FT%H%MZ') }}-backup.ucs"
+    # trusted_checksum: "{{lookup('file', '{{repo_path}}/{{f5_image}}.md5').split(' ').0}}"
+    # backup_dir: "/f5data/backups"
+    upgrade_image: "BIGIP-17.1.1.1-0.0.2.iso"
+    repo_path: "/mnt/apps/isos/VMware/Appliances/F5/17.x/"
   roles:
-    #- roles/F5/create_ucs
-    - roles/F5/refresh_license
-    # - roles/F5/upload_upgrade_f5
+    # - roles/F5/create_ucs
+    # - roles/F5/refresh_license
+    - roles/F5/upload_upgrade_f5
     # - roles/F5/upgrade_reboot
 
 # - name: "Get bigip status of virtuals, pools, nodes, and routes"
