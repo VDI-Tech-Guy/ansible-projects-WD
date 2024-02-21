@@ -5,7 +5,6 @@
     gather_subset:
       - license
   register: license_info
-  delegate_to: localhost
 
 - debug:
     var: license_info
