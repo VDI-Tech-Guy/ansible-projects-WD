@@ -1,3 +1,0 @@
----
- - name: Create UCS Files Array
-   include_tasks: create_ucs.yml
