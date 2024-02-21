@@ -9,7 +9,7 @@
   delegate_to: localhost
 
 - debug:
-    var: license_info
+    var: license_info.license.registration_key
 
 
 # - name: Refresh license
