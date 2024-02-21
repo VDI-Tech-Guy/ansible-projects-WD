@@ -23,7 +23,7 @@
       fi
       done
 
-      volume=$disk$((maxvnumber + 3))
+      volume=$disk$((maxvnumber + 1))
       echo -n $volume
       IFS="$OLDIFS"
 
