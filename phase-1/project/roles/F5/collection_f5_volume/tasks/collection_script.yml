@@ -9,10 +9,10 @@
 
       OLDIFS="$IFS"
       IFS=$'\n'
-      disk=$(/bin/tmsh show sys sof status | awk '/.D[1-9]/{print substr($1,1,4)}' | head -n1)
+      disk=$(tmsh show sys sof status | awk '/.D[1-9]/{print substr($1,1,4)}' | head -n1)
       maxvnumber=0
 
-      for vnumber in $(/bin/tmsh show sys sof status | grep complete)
+      for vnumber in $(tmsh show sys sof status | grep complete)
       do
 
       vnumber=${vnumber:4:2}
