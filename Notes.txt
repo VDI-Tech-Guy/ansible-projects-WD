@@ -1,0 +1,22 @@
+before you start, when using Ansible Automation Platform on RHEL with SE Linux there are limitations on writing to a folder when using EXPOSE Paths
+
+You must modify the directory you intend to use by changing the folder datatype to allow containers to write to it, if it is not you will get Access Denied.
+
+
+Here is an example of a commands that you should do to a folder (AS ROOT)
+
+mkdir /f5data
+chown awx:awx /f5data
+chmod 775 /f5data
+chcon -t container_file_t /f5data
+
+this will allow /f5data when passed through in AAP as a exposed path (Note that /mnt/apps is a SAMBA Share mounted to /mnt/apps directory but can be used)
+
+Here is the example of that section, rw = Read/Write, ro = Read Only
+
+[
+  "/etc/pki/ca-trust:/etc/pki/ca-trust:O",
+  "/f5data:/f5data:rw",
+  "/mnt/apps:/mnt/apps:ro",
+  "/usr/share/pki:/usr/share/pki:O"
+]
