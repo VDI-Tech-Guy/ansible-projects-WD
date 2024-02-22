@@ -31,6 +31,9 @@
   register: find_standby
   delegate_to: localhost
 
+- debug:
+    var: find_standby
+
 - name: Install and activate on Standby Unit
   f5networks.f5_modules.bigip_software_install:
     image: '{{ upgrade_image }}'
