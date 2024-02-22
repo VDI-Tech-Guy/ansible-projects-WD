@@ -34,6 +34,7 @@
 - debug:
     var: find_standby
 
+# IGNORES ERRORS DUE TO Loss of connectivity during reboot, this is expected behavior but creates a fatal error which isnt really an error but prevents the continuation check after
 - name: Install and activate on Standby Unit
   f5networks.f5_modules.bigip_software_install:
     image: '{{ upgrade_image }}'
@@ -42,6 +43,7 @@
     provider: "{{ provider }}"
   when: '"Standby" in find_standby.stdout[0]'
   delegate_to: localhost
+  ignore_errors: true
 
 - name: Wait for standby device to be healthy before proceeding
   bigip_command:
@@ -60,6 +62,7 @@
   when: '"Standby" in find_standby.stdout[0]'
   delegate_to: localhost
 
+# IGNORES ERRORS DUE TO Loss of connectivity during reboot, this is expected behavior but creates a fatal error which isnt really an error but prevents the continuation check after
 - name: Install and activate on Active Unit
   f5networks.f5_modules.bigip_software_install:
     image: '{{ upgrade_image }}'
@@ -68,6 +71,7 @@
     provider: "{{ provider }}"
   when: '"Active" in find_standby.stdout[0]'
   delegate_to: localhost
+  ignore_errors: true
 
 - name: Wait for previously Active device to be healthy before proceeding
   bigip_command:
