@@ -2,7 +2,6 @@
 - name: "Get bigip status of virtuals, pools, nodes, and routes"
   hosts: LB
   gather_facts: false
-  #connection: local
   vars:
     # filename is built to hold the report name.  Its timestamped and designated with BEFORE which is used in comparison
     # script_file is the script that is echoed on the device and ran to collect information
@@ -11,42 +10,41 @@
     filename: "{{inventory_hostname}}-{{ lookup('pipe', 'date +%FT%H%MZ') }}-BEFORE.log"
     script_file: "{{playbook_dir}}/data_collection_script.sh"
     data_file: "{{playbook_dir}}/{{filename}}"
-    # device_working_dir: "/var/tmp"
-    # mount_dir: "/f5data"
     report_dir: "/f5data/reports"
   roles:
     - roles/General/collection_script
 
 - name: BIG-IP create UCS and save locally off-box
   hosts: LB
-  connection: local
   gather_facts: false
   vars:
     filename: "{{inventory_hostname}}-{{ lookup('pipe', 'date +%FT%H%MZ') }}-backup.ucs"
-    # license_key: LKERN-HLLOR-ZJGOM-URZDA-PMALOSC
-    trusted_checksum: "{{lookup('file', '{{repo_path}}/{{f5_image}}.md5').split(' ').0}}"
     backup_dir: "/f5data/backups"
+    upgrade_image: "BIGIP-17.1.1.1-0.0.2.iso"
+    repo_path: "/mnt/apps/isos/VMware/Appliances/F5/17.x/"
+    trusted_checksum: "{{lookup('file', '{{ repo_path }}{{ upgrade_image }}.md5').split(' ').0}}"
+    script_file: "{{playbook_dir}}/collect_f5_volume.sh"
 
   roles:
     - roles/F5/create_ucs
     # - roles/F5/refresh_license
-    # - roles/F5/upload_upgrade_f5
-    # - roles/F5/upgrade_reboot
+    - roles/F5/collection_f5_volume
+    - roles/F5/upload_upgrade_f5
 
-# - name: "Get bigip status of virtuals, pools, nodes, and routes"
-#   hosts: ssh
-#   gather_facts: false
-#   connection: local
-#   vars:
-#     # filename is built to hold the report name.  Its timestamped and designated with BEFORE which is used in comparison
-#     # script_file is the script that is echoed on the device and ran to collect information
-#     # data_file is the out of the script file or the report.  Note this goes to a mounted directory in the EE!  Important.
-#     # device_working_dir, and report_dir are defined in the hosts/inventory
-#     filename: "{{inventory_hostname}}-{{ lookup('pipe', 'date +%FT%H%MZ') }}-AFTER.log"
-#     script_file: "{{device_working_dir}}/data_collection_script.sh"
-#     data_file: "{{device_working_dir}}/{{filename}}"
-#   roles:
-#     - roles/General/collection_scripts
+- name: "Get bigip status of virtuals, pools, nodes, and routes"
+  hosts: LB
+  gather_facts: false
+  vars:
+    # filename is built to hold the report name.  Its timestamped and designated with BEFORE which is used in comparison
+    # script_file is the script that is echoed on the device and ran to collect information
+    # data_file is the out of the script file or the report.  Note this goes to a mounted directory in the EE!  Important.
+    # device_working_dir, and report_dir are defined in the hosts/inventory
+    filename: "{{inventory_hostname}}-{{ lookup('pipe', 'date +%FT%H%MZ') }}-AFTER.log"
+    script_file: "{{playbook_dir}}/data_collection_script.sh"
+    data_file: "{{playbook_dir}}/{{filename}}"
+    report_dir: "/f5data/reports"
+  roles:
+    - roles/General/collection_script
 
 # - name: BIG-IP create UCS and save locally off-box
 #   hosts: lb
