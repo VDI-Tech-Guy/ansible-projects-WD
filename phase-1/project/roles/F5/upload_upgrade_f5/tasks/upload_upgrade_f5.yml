@@ -29,6 +29,7 @@
     commands:
       - bash -c "cat /var/prompt/ps1"
   register: find_standby
+  delegate_to: localhost
 
 - name: Install and activate on Standby Unit
   f5networks.f5_modules.bigip_software_install:
@@ -54,6 +55,7 @@
   register: result  
   any_errors_fatal: true  
   when: find_standby[0] contains Standby
+  delegate_to: localhost
 
 - name: Install and activate on Active Unit
   f5networks.f5_modules.bigip_software_install:
@@ -79,6 +81,7 @@
   register: result  
   any_errors_fatal: true  
   when: find_standby[0] contains Standby
-
+  delegate_to: localhost
+  
 - debug:
     msg: "Upgrades Completed"
