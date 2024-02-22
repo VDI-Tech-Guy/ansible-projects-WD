@@ -11,9 +11,9 @@
 #Create UCS File and store it on the Local Ansible Node that executed.
 - name: Create and Download a UCS
   f5networks.f5_modules.bigip_ucs_fetch:
-    src: "{{file_name}}"
-    dest: "{{local_folder_location}}{{file_name}}"
-    provider: "{{provider}}"
+    src: "{{ filename }}"
+    dest: "{{ backup_dir }}/{{ filename }}"
+    provider: "{{ provider }}"
     async_timeout: 300
   retries: 5
   delay: 60
