@@ -46,10 +46,10 @@
   roles:
     - roles/General/collection_script
 
-# - name: BIG-IP create UCS and save locally off-box
-#   hosts: lb
-#   connection: local
-#   gather_facts: false
-
-#   roles:
-#     - roles/General/compare_data
+- name: BIG-IP create UCS and save locally off-box
+  hosts: LB
+  gather_facts: false
+  vars:
+    report_dir: "/f5data/reports"
+  roles:
+    - roles/General/compare_data
