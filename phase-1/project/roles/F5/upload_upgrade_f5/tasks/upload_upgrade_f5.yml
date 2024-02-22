@@ -37,7 +37,7 @@
     volume: "{{ volume_info.stdout }}"
     state: activated
     provider: "{{ provider }}"
-  when: '"Standby" in standby[0]'
+  when: '"Standby" in find_standby[0]'
   delegate_to: localhost
 
 - name: Wait for standby device to be healthy before proceeding
@@ -54,7 +54,7 @@
     interval: 10
   register: result  
   any_errors_fatal: true  
-  when: '"Standby" in standby[0]'
+  when: '"Standby" in find_standby[0]'
   delegate_to: localhost
 
 - name: Install and activate on Active Unit
@@ -63,7 +63,7 @@
     volume: "{{ volume_info.stdout }}"
     state: activated
     provider: "{{ provider }}"
-  when: '"Active" in standby[0]'
+  when: '"Active" in find_standby[0]'
   delegate_to: localhost
 
 - name: Wait for previously Active device to be healthy before proceeding
@@ -80,7 +80,7 @@
     interval: 10
   register: result  
   any_errors_fatal: true  
-  when: '"Active" in standby[0]'
+  when: '"Active" in find_standby[0]'
   delegate_to: localhost
 
 - debug:
