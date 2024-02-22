@@ -23,20 +23,62 @@
 
 # need to add code for finding standby node upgrade, then upgrade standby then reboot, then do active. 
 
-- name: Ensure an existing image is installed in specified volume
+- name: Find Standby Unit in HA Pair and upload/activate first
+  bigip_command:
+    provider: "{{ provider }}"
+    commands:
+      - bash -c "cat /var/prompt/ps1"
+  register: find_standby
+
+- name: Install and activate on Standby Unit
   f5networks.f5_modules.bigip_software_install:
     image: '{{ upgrade_image }}'
     volume: "{{ volume_info.stdout }}"
-    state: installed
-    provider: "{{ provider }}"
-  delegate_to: localhost
-
-- name: Activate the new image and reboot into that volume
-# For some reason this doesn't activate or reboot the system.  Issue #2374 has been opened to investigate
-# Response on #2374 is they are not going to fix it and NEXT will be great.
-  f5networks.f5_modules.bigip_software_install:
-    image: '{{ upgrade_image }}'
-    volume: '{{ volume_info.stdout }}'
     state: activated
     provider: "{{ provider }}"
+  when: find_standby[0] contains Standby
   delegate_to: localhost
+
+- name: Wait for standby device to be healthy before proceeding
+  bigip_command:
+    provider: "{{ provider }}"
+    match: "any"
+    warn: no
+    commands:
+      - bash -c "cat /var/prompt/ps1"
+    wait_for:
+      - result[0] contains Active
+      - result[0] contains Standby
+    retries: 12
+    interval: 10
+  register: result  
+  any_errors_fatal: true  
+  when: find_standby[0] contains Standby
+
+- name: Install and activate on Active Unit
+  f5networks.f5_modules.bigip_software_install:
+    image: '{{ upgrade_image }}'
+    volume: "{{ volume_info.stdout }}"
+    state: activated
+    provider: "{{ provider }}"
+  when: find_standby[0] contains Active
+  delegate_to: localhost
+
+- name: Wait for previously Active device to be healthy before proceeding
+  bigip_command:
+    provider: "{{ provider }}"
+    match: "any"
+    warn: no
+    commands:
+      - bash -c "cat /var/prompt/ps1"
+    wait_for:
+      - result[0] contains Active
+      - result[0] contains Standby
+    retries: 12
+    interval: 10
+  register: result  
+  any_errors_fatal: true  
+  when: find_standby[0] contains Standby
+
+- debug:
+    msg: "Upgrades Completed"
